@@ -28,3 +28,14 @@ document.addEventListener('keydown', (event) => {
   updateMenu();
   menu.focus();
 });
+
+if ('ResizeObserver' in window) {
+  const layers = document.querySelectorAll('.scroll-stack > .scroll-layer');
+  const observer = new ResizeObserver((entries) => {
+    for (const { target } of entries) {
+      target.style.setProperty('--layer-height', target.offsetHeight + 'px');
+    }
+  });
+
+  for (const layer of layers) observer.observe(layer);
+}

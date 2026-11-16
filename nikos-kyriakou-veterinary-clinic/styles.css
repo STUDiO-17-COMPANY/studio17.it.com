@@ -6,6 +6,7 @@
   --mint: #dce7df;
   --forest: #24332d;
   --line: #adbdaf;
+  --scallop-height: clamp(1.8rem, 5vw, 4.25rem);
   font-family: "Nunito", system-ui, sans-serif;
   background: var(--page);
   color: var(--forest);
@@ -43,7 +44,7 @@ nav a:hover { text-decoration: underline; }
 .header-call:hover { background: var(--sage); border-color: var(--sage); }
 .text-link { display: inline-flex; align-items: center; gap: .4rem; min-height: 44px; font-weight: 700; }
 .actions { display: flex; align-items: center; flex-wrap: wrap; gap: .75rem 1.4rem; margin-top: 1.6rem; }
-.hero { position: relative; display: grid; gap: 1rem; margin-bottom: clamp(1.35rem, 3.3vw, 3rem); }
+.hero { position: relative; display: grid; gap: 1rem; margin-bottom: var(--scallop-height); }
 .hero-copy {
   background: var(--mint);
   border-radius: 1.9rem;
@@ -57,42 +58,9 @@ nav a:hover { text-decoration: underline; }
 .hero-photo { position: relative; overflow: hidden; margin: 0; aspect-ratio: 1 / 1; border-radius: 1.9rem; background: #a9bca8; }
 .hero-photo img { position: absolute; height: 100%; object-fit: cover; object-position: 50% 40%; }
 
-.hero-edge {
-  position: absolute;
-  inset: auto 0 calc(-1 * clamp(7px, 1.25vw, 16px));
-  height: 1px;
-  background: var(--page);
-  pointer-events: none;
-}
-.hero-edge > span {
-  position: absolute;
-  bottom: 0;
-  border-radius: 50% 50% 0 0 / 100% 100% 0 0;
-  background: var(--page);
-}
-.hero-edge > :nth-child(1), .hero-edge > :nth-child(7) { width: 23%; aspect-ratio: 2.05; }
-.hero-edge > :nth-child(2), .hero-edge > :nth-child(6) { width: 17%; aspect-ratio: 2.4; }
-.hero-edge > :nth-child(3), .hero-edge > :nth-child(5) { width: 13%; aspect-ratio: 2.15; }
-.hero-edge > :nth-child(1) { left: 0; }
-.hero-edge > :nth-child(2) { left: 19%; }
-.hero-edge > :nth-child(3) { left: 33%; }
-.hero-edge > :nth-child(5) { right: 33%; }
-.hero-edge > :nth-child(6) { right: 19%; }
-.hero-edge > :nth-child(7) { right: 0; }
-.hero-edge > .edge-paw {
-  z-index: 1;
-  left: 50%;
-  width: clamp(4.75rem, 17%, 12rem);
-  aspect-ratio: 1.55;
-  transform: translateX(-50%);
-  display: grid;
-  place-items: center;
-  color: var(--sage);
-}
-.edge-paw svg { width: 43%; }
 
-.intro { padding-block: clamp(1.65rem, 4vw, 4rem) clamp(.85rem, 1.8vw, 1.6rem); }
-.intro + .section { padding-top: clamp(1.5rem, 2.5vw, 2.6rem); }
+.intro { position: relative; --scallop-color: var(--page); padding-block: clamp(1.65rem, 4vw, 4rem) clamp(.85rem, 1.8vw, 1.6rem); }
+#services { padding-top: clamp(1.5rem, 2.5vw, 2.6rem); }
 .intro-inner { display: grid; gap: clamp(1.45rem, 6vw, 6rem); align-items: center; }
 .intro-photo { position: relative; margin: 0; aspect-ratio: 1.25; overflow: hidden; border-radius: 17% 50% 13% 13% / 22% 66% 18% 18%; background: var(--mint); }
 .intro-photo img { height: 100%; object-fit: cover; }
@@ -103,7 +71,6 @@ nav a:hover { text-decoration: underline; }
 .intro-inset-bottom { float: right; margin: -.35rem .5rem .35rem 1rem; transform: rotate(9deg); }
 
 .testimonials, .profile, .contact {
-  --scallop-height: clamp(1.8rem, 5vw, 4.25rem);
   position: relative;
 }
 .testimonials {
@@ -112,7 +79,7 @@ nav a:hover { text-decoration: underline; }
   text-align: center;
   padding-block: clamp(3rem, 7vw, 6rem);
 }
-.testimonials::before, .profile::before, .profile::after, .contact::before, .contact::after {
+.intro::before, .testimonials::before, .profile::before, .profile::after, .contact::before, .contact::after, .scroll-layer-cloud::before {
   content: "";
   position: absolute;
   inset: auto 0 calc(100% - 1px);
@@ -129,6 +96,7 @@ nav a:hover { text-decoration: underline; }
     linear-gradient(var(--scallop-color), var(--scallop-color)) bottom / 100% 1px no-repeat;
   pointer-events: none;
 }
+.scroll-layer-cloud::before { content: none; }
 .cards, .profile-inner, .faq, .contact-inner { display: grid; gap: 1rem; }
 .card { padding: clamp(1.35rem, 3.5vw, 2.6rem); border: 1px solid var(--line); border-radius: 1.55rem; }
 .section-lead { max-width: 57ch; }
@@ -211,12 +179,9 @@ iframe { display: block; border: 0; width: 100%; height: 20rem; background: var(
   .intro-inset-bottom { right: .65rem; }
 }
 @media (min-width: 761px) {
-  .hero-edge { bottom: calc(-1 * clamp(1.2rem, 2.5vw, 2.25rem)); }
-  .hero-copy .actions { position: relative; z-index: 2; }
   .shell { width: min(100% - 3rem, 79rem); }
   nav { width: auto; margin-left: auto; gap: .4rem clamp(.75rem, 1.6vw, 1.6rem); }
   .hero { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-  .hero-copy { padding-bottom: clamp(3.75rem, 6.5vw, 6rem); }
   .hero-photo { aspect-ratio: auto; min-height: clamp(25rem, 43vw, 37rem); }
   .intro-inner { grid-template-columns: minmax(0, .92fr) minmax(0, 1fr); }
   .intro-copy { position: relative; padding: 1.25rem 1.75rem 2.4rem 0; }
@@ -298,4 +263,58 @@ iframe { display: block; border: 0; width: 100%; height: 20rem; background: var(
       to { opacity: 1; translate: 0 0; }
     }
   }
+}
+
+.scroll-stack { isolation: isolate; }
+.scroll-layer { display: flow-root; }
+
+@media (prefers-reduced-motion: no-preference) {
+  .scroll-stack:not(:has(:focus-visible)) > .scroll-layer {
+    position: relative;
+    z-index: 1;
+    background-color: var(--layer-background, var(--page));
+  }
+
+  .scroll-stack:not(:has(:focus-visible)) > .scroll-layer:not(:last-child) {
+    position: sticky;
+    top: min(0px, calc(100svh - var(--layer-height)));
+  }
+
+  .scroll-layer:has(> .profile) { --layer-background: var(--cream); }
+  .scroll-layer:has(> .testimonials) { --layer-background: var(--mint); }
+  .scroll-layer:has(> .contact) { --layer-background: var(--forest); }
+
+  .scroll-stack:not(:has(:focus-visible)) .profile::after { content: none; }
+  .scroll-stack:not(:has(:focus-visible)) > .scroll-layer-cloud::before {
+    --scallop-color: var(--page);
+    content: "";
+  }
+}
+
+@media (min-width: 86rem) and (hover: hover) and (pointer: fine) {
+  .scroll-stack {
+    --track-gutter: max(.9rem, calc((100vw - 79rem) / 4 - .6rem));
+    --dog-track: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2032%2032%22%20fill%3D%22black%22%3E%3Cellipse%20cx%3D%227%22%20cy%3D%2213%22%20rx%3D%223%22%20ry%3D%224%22%20transform%3D%22rotate(-25%207%2013)%22%2F%3E%3Cellipse%20cx%3D%2213%22%20cy%3D%228%22%20rx%3D%223%22%20ry%3D%224%22%2F%3E%3Cellipse%20cx%3D%2220%22%20cy%3D%228%22%20rx%3D%223%22%20ry%3D%224%22%2F%3E%3Cellipse%20cx%3D%2226%22%20cy%3D%2213%22%20rx%3D%223%22%20ry%3D%224%22%20transform%3D%22rotate(25%2026%2013)%22%2F%3E%3Cpath%20d%3D%22M8%2023c0-4%205-8%208-8s8%204%208%208c0%205-5%204-8%203-3%201-8%202-8-3z%22%2F%3E%3C%2Fsvg%3E");
+    --cat-track: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2032%2032%22%3E%3Cg%20transform%3D%22rotate(-20%2016%2016)%22%3E%3Cellipse%20cx%3D%226.8%22%20cy%3D%2213.7%22%20rx%3D%223.1%22%20ry%3D%223.5%22%2F%3E%3Cellipse%20cx%3D%2212.4%22%20cy%3D%228.5%22%20rx%3D%223.4%22%20ry%3D%223.8%22%2F%3E%3Cellipse%20cx%3D%2220%22%20cy%3D%228.5%22%20rx%3D%223.4%22%20ry%3D%223.8%22%2F%3E%3Cellipse%20cx%3D%2225.7%22%20cy%3D%2213.7%22%20rx%3D%223%22%20ry%3D%223.5%22%2F%3E%3Cpath%20d%3D%22M7%2023c0-4%205-7%209-7s9%203%209%207c0%203-2%205-5%205-2%200-3-1-4-2-1%201-2%202-4%202-3%200-5-2-5-5z%22%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E");
+    --rabbit-track: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2032%2032%22%3E%3Cg%20transform%3D%22rotate(18%2016%2016)%22%3E%3Cellipse%20cx%3D%227.7%22%20cy%3D%2210.9%22%20rx%3D%222.1%22%20ry%3D%224%22%2F%3E%3Cellipse%20cx%3D%2213%22%20cy%3D%227.3%22%20rx%3D%222.35%22%20ry%3D%224.65%22%2F%3E%3Cellipse%20cx%3D%2219%22%20cy%3D%227.6%22%20rx%3D%222.35%22%20ry%3D%224.4%22%2F%3E%3Cellipse%20cx%3D%2224.1%22%20cy%3D%2211.5%22%20rx%3D%222.05%22%20ry%3D%223.8%22%2F%3E%3Cpath%20d%3D%22M16%2013.4c3.6%200%205.5%203.3%205.5%207.5%200%204.5-2.2%209-5.5%209s-5.5-4.5-5.5-9c0-4.2%201.9-7.5%205.5-7.5z%22%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E");
+  }
+
+  .scroll-layer { position: relative; }
+
+  .scroll-layer::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    opacity: .14;
+    background: var(--dog-track) left var(--track-gutter) top 36% / 1.8rem no-repeat;
+    pointer-events: none;
+  }
+
+  .scroll-layer:nth-child(even)::after {
+    background-position: right var(--track-gutter) top 56%;
+  }
+
+  .scroll-layer:nth-child(3n + 2)::after { background-image: var(--cat-track); }
+  .scroll-layer:nth-child(3n)::after { background-image: var(--rabbit-track); }
+  .scroll-layer:last-child::after { filter: invert(1); opacity: .2; }
 }
