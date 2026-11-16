@@ -242,3 +242,64 @@ iframe { display: block; border: 0; width: 100%; height: 20rem; background: var(
 @media (min-width: 900px) {
   .cards { grid-template-columns: repeat(3, minmax(0, 1fr)); }
 }
+
+@media (prefers-reduced-motion: no-preference) {
+  .button {
+    transition: background-color 180ms ease, border-color 180ms ease, translate 180ms ease;
+  }
+}
+
+@media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+  .button:hover { translate: 0 -2px; }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  @supports (animation-timeline: view()) and (animation-range: entry 0% cover 28%) {
+    .hero-photo,
+    .intro-photo,
+    .profile-photo {
+      view-timeline-name: --photo-in-view;
+    }
+
+    .hero-photo img,
+    .intro-photo img,
+    .profile-photo img {
+      animation: photo-drift auto linear both;
+      animation-timeline: --photo-in-view;
+      animation-range: cover 15% cover 85%;
+    }
+
+    .intro-inner { view-timeline-name: --intro-in-view; }
+
+    .intro-inset {
+      animation: accent-drift auto linear both;
+      animation-timeline: --intro-in-view;
+      animation-range: cover 10% cover 85%;
+    }
+
+    .intro-inset-top { --drift-start: 6px; --drift-end: -7px; }
+    .intro-inset-bottom { --drift-start: -5px; --drift-end: 7px; }
+
+    main h2,
+    .review-card {
+      animation: rise-in auto ease-out both;
+      animation-timeline: view();
+      animation-range: entry 0% cover 28%;
+    }
+
+    @keyframes photo-drift {
+      from { transform: translateY(-2%) scale(1.06); }
+      to { transform: translateY(2%) scale(1.06); }
+    }
+
+    @keyframes accent-drift {
+      from { translate: 0 var(--drift-start); }
+      to { translate: 0 var(--drift-end); }
+    }
+
+    @keyframes rise-in {
+      from { opacity: .84; translate: 0 12px; }
+      to { opacity: 1; translate: 0 0; }
+    }
+  }
+}
