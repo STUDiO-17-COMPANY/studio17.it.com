@@ -1,2 +1,7 @@
-# studio17.it.com
-Private website prototype and development library for Studio 17, operated by H&amp;P DOMUS CREATIVE LTD. Used to develop, manage, test, and preview client websites and digital projects before production.
+**Copyright © 2026 H&P DOMUS CREATIVE LTD. All Rights Reserved.**
+
+This repository contains proprietary source code, website prototypes, designs, and other intellectual property developed for Studio 17.
+
+All materials are intended for authorized internal development, testing, and client presentations.
+
+Unauthorized copying, modification, distribution, sublicensing, or commercial use is prohibited without prior written permission from H&P DOMUS CREATIVE LTD.
