@@ -1,5 +1,6 @@
 :root {
   color-scheme: light;
+  scroll-padding-top: var(--header-height, 4.35rem);
   --sage: #426b5a;
   --page: #FFFFFF;
   --cream: #f7f5ef;
@@ -28,8 +29,9 @@ h3 { font-size: clamp(1.5rem, 3vw, 2.15rem); }
 .shell { width: min(100% - 2rem, 79rem); margin-inline: auto; }
 .section { padding-block: clamp(3.6rem, 8vw, 7rem); }
 .eyebrow { font-size: .74rem; font-weight: 800; letter-spacing: .13em; text-transform: uppercase; }
-.skip { position: absolute; left: 1rem; top: 1rem; z-index: 2; padding: .8rem; background: var(--cream); transform: translateY(-200%); }
+.skip { position: fixed; left: 1rem; top: 1rem; z-index: 11; padding: .8rem; background: var(--cream); transform: translateY(-200%); }
 .skip:focus { transform: none; }
+.site-header { position: sticky; top: 0; z-index: 10; background: var(--page); }
 .header { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: .7rem 1.25rem; min-height: 4.35rem; padding-block: .6rem; }
 .brand { font-size: 1.18rem; font-weight: 800; line-height: 1.1; letter-spacing: -.035em; display: inline-flex; flex-direction: column; justify-content: center; min-height: 44px; text-decoration: none; }
 .brand small { display: block; margin-top: .15rem; font-size: .75rem; font-weight: 600; letter-spacing: 0; color: var(--sage); }
@@ -277,7 +279,7 @@ iframe { display: block; border: 0; width: 100%; height: 20rem; background: var(
 
   .scroll-stack:not(:has(:focus-visible)) > .scroll-layer:not(:last-child) {
     position: sticky;
-    top: min(0px, calc(100svh - var(--layer-height)));
+    top: min(var(--header-height, 4.35rem), calc(100svh - var(--layer-height)));
   }
 
   .scroll-layer:has(> .profile) { --layer-background: var(--cream); }

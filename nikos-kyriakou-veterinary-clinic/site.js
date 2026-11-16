@@ -1,11 +1,17 @@
 const menu = document.querySelector('.menu');
 const navigation = document.querySelector('#navigation');
+const header = document.querySelector('.site-header');
 const compact = window.matchMedia('(max-width: 760px)');
+
+function updateHeaderHeight() {
+  document.documentElement.style.setProperty('--header-height', header.offsetHeight + 'px');
+}
 
 function updateMenu(open = false) {
   menu.hidden = !compact.matches;
   navigation.hidden = compact.matches && !open;
   menu.setAttribute('aria-expanded', String(compact.matches && open));
+  updateHeaderHeight();
 }
 
 updateMenu();
@@ -33,9 +39,14 @@ if ('ResizeObserver' in window) {
   const layers = document.querySelectorAll('.scroll-stack > .scroll-layer');
   const observer = new ResizeObserver((entries) => {
     for (const { target } of entries) {
+      if (target === header) {
+        updateHeaderHeight();
+        continue;
+      }
       target.style.setProperty('--layer-height', target.offsetHeight + 'px');
     }
   });
 
+  observer.observe(header);
   for (const layer of layers) observer.observe(layer);
 }
