@@ -1,12 +1,13 @@
 :root {
   color-scheme: light;
   --sage: #426b5a;
+  --page: #FFFFFF;
   --cream: #f7f5ef;
   --mint: #dce7df;
   --forest: #24332d;
   --line: #adbdaf;
   font-family: "Nunito", system-ui, sans-serif;
-  background: var(--cream);
+  background: var(--page);
   color: var(--forest);
 }
 *, *::before, *::after { box-sizing: border-box; }
@@ -38,7 +39,7 @@ nav a:hover { text-decoration: underline; }
 .button { display: inline-flex; align-items: center; justify-content: center; gap: .85rem; min-height: 48px; padding: .72rem 1.25rem; border: 1px solid var(--sage); border-radius: 5rem; background: var(--sage); color: white; font-weight: 700; text-decoration: none; }
 .button:hover { background: var(--forest); border-color: var(--forest); }
 .button:focus-visible { outline-color: var(--forest); }
-.header-call { display: none; min-height: 44px; padding: .55rem 1rem; border-radius: .9rem; background: var(--forest); border-color: var(--forest); font-size: .9rem; font-weight: 600; }
+.header-call { white-space: nowrap; min-height: 44px; padding: .55rem 1rem; border-radius: .9rem; background: var(--forest); border-color: var(--forest); font-size: .9rem; font-weight: 600; }
 .header-call:hover { background: var(--sage); border-color: var(--sage); }
 .text-link { display: inline-flex; align-items: center; gap: .4rem; min-height: 44px; font-weight: 700; }
 .actions { display: flex; align-items: center; flex-wrap: wrap; gap: .75rem 1.4rem; margin-top: 1.6rem; }
@@ -54,27 +55,26 @@ nav a:hover { text-decoration: underline; }
 .hero-copy > p:not(.eyebrow) { max-width: 33ch; font-size: clamp(1rem, 1.5vw, 1.25rem); }
 .hero-photo { position: relative; overflow: hidden; margin: 0; aspect-ratio: 1 / 1; border-radius: 1.9rem; background: #a9bca8; }
 .hero-photo img { position: absolute; height: 100%; object-fit: cover; object-position: 50% 40%; }
-.hero-photo figcaption, .intro-photo figcaption {
+.intro-photo figcaption {
   position: absolute;
   border-radius: 2rem;
   padding: .4rem .7rem;
   background: var(--cream);
   font-size: .73rem;
 }
-.hero-photo figcaption { inset: .85rem .85rem auto auto; }
 
 .hero-edge {
   position: absolute;
-  inset: auto 0 -1px;
+  inset: auto 0 calc(-1 * clamp(7px, 1.25vw, 16px));
   height: 1px;
-  background: var(--cream);
+  background: var(--page);
   pointer-events: none;
 }
 .hero-edge > span {
   position: absolute;
   bottom: 0;
   border-radius: 50% 50% 0 0 / 100% 100% 0 0;
-  background: var(--cream);
+  background: var(--page);
 }
 .hero-edge > :nth-child(1), .hero-edge > :nth-child(7) { width: 23%; aspect-ratio: 2.05; }
 .hero-edge > :nth-child(2), .hero-edge > :nth-child(6) { width: 17%; aspect-ratio: 2.4; }
@@ -108,17 +108,66 @@ nav a:hover { text-decoration: underline; }
 .intro-inset-top { float: left; margin: 0 .9rem .55rem 0; transform: rotate(-9deg); }
 .intro-inset-bottom { float: right; margin: -.35rem .5rem .35rem 1rem; transform: rotate(9deg); }
 
-.testimonials { background: var(--mint); text-align: center; padding-block: clamp(3rem, 7vw, 6rem); }
+.testimonials {
+  --scallop-width: clamp(4rem, 11vw, 9rem);
+  --scallop-height: clamp(1rem, 2.7vw, 2.25rem);
+  position: relative;
+  background: var(--mint);
+  text-align: center;
+  padding-block: clamp(3rem, 7vw, 6rem);
+}
+.testimonials::before {
+  content: "";
+  position: absolute;
+  inset: auto 0 calc(100% - 1px);
+  height: var(--scallop-height);
+  background: radial-gradient(ellipse 50% 100% at 50% 100%, var(--mint) 98%, transparent)
+    center bottom / var(--scallop-width) 100% repeat-x;
+  pointer-events: none;
+}
 .cards, .profile, .faq, .contact-inner { display: grid; gap: 1rem; }
 .card { padding: clamp(1.35rem, 3.5vw, 2.6rem); border: 1px solid var(--line); border-radius: 1.55rem; }
 .section-lead { max-width: 57ch; }
 .placeholder { font-size: .86rem; font-weight: 700; color: var(--sage); }
-.profile { align-items: center; background: var(--forest); color: var(--cream); border-radius: 1.9rem; padding: 1rem; }
-.portrait { background: var(--mint); color: var(--forest); border-radius: 1.35rem; min-height: 16rem; text-align: center; display: grid; place-content: center; gap: .6rem; }
-.portrait span { font-size: clamp(4rem, 10vw, 8rem); font-weight: 900; line-height: 1; letter-spacing: -.065em; color: var(--sage); }
-.portrait p { font-size: .86rem; font-weight: 700; }
-.profile-copy { padding: clamp(.8rem, 3vw, 3rem); }
-.profile .placeholder { color: var(--mint); }
+.profile {
+  align-items: center;
+  gap: clamp(2rem, 6vw, 6rem);
+  padding: clamp(1.4rem, 4vw, 4rem);
+  border-radius: clamp(1.6rem, 4vw, 3.1rem);
+  background: var(--cream);
+}
+.profile-portrait {
+  position: relative;
+  isolation: isolate;
+  width: min(100%, 30rem);
+  margin: 0 auto;
+}
+.profile-portrait::before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  inset: 7% -3% -4% 9%;
+  border-radius: 22% 25% 42% 22% / 24% 25% 50% 27%;
+  background: var(--mint);
+}
+.profile-photo {
+  aspect-ratio: 1.25;
+  border-radius: 46% 18% 35% 17% / 63% 25% 47% 23%;
+  overflow: hidden;
+  background: var(--mint);
+}
+.profile-photo img { height: 100%; object-fit: cover; object-position: center 42%; }
+.profile-portrait figcaption {
+  position: absolute;
+  bottom: .7rem;
+  left: .8rem;
+  padding: .35rem .7rem;
+  border-radius: 2rem;
+  background: var(--page);
+  font-size: .73rem;
+  font-weight: 700;
+}
+.profile-copy p { max-width: 46ch; }
 .cards { margin-top: 1.75rem; }
 .cards > .card { background: #fffdf8; border-color: #c4cec4; min-width: 0; }
 .card .placeholder { margin-bottom: .8rem; }
@@ -148,7 +197,6 @@ iframe { display: block; border: 0; width: 100%; height: 20rem; background: var(
 @media (min-width: 761px) {
   .shell { width: min(100% - 3rem, 79rem); }
   nav { width: auto; margin-left: auto; gap: .4rem clamp(.75rem, 1.6vw, 1.6rem); }
-  .header-call { display: inline-flex; }
   .hero { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .hero-copy { padding-bottom: clamp(4.5rem, 8vw, 7rem); }
   .hero-photo { aspect-ratio: auto; min-height: clamp(25rem, 43vw, 37rem); }
@@ -158,8 +206,7 @@ iframe { display: block; border: 0; width: 100%; height: 20rem; background: var(
   .intro-inset-bottom { position: absolute; right: .5rem; bottom: -1rem; margin: 0; }
   .review-card-photo { grid-template-columns: minmax(0, 1fr) minmax(0, 2.3fr); }
   .review-card-photo > img { height: 100%; max-height: none; }
-  .profile { grid-template-columns: .83fr 1.17fr; }
-  .portrait { min-height: 21rem; }
+  .profile { grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr); }
   .contact-inner { grid-template-columns: 1fr 1fr; }
   .faq { grid-template-columns: .8fr 1.2fr; gap: 3rem; }
 }
